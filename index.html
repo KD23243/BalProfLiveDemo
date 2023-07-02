@@ -1,20 +1,35 @@
-<html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
    <meta charset="utf-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1">
+
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/spiermar/d3-flame-graph@2.0.3/dist/d3-flamegraph.css">
 
-<style>
+   <style>
+      #profilerLogo {
+         color: #20b6b0;
+         margin-top: -33px;
+         margin-left: 190px;
+         position: absolute;
+         font-size: 32px;
+         font-weight: bold;
+      }
+
       body {
-         background-color: #1B2024;
+         background-color: #fefefe;
       }
 
       .container {
          padding-left: 0px;
          margin-left: 40px;
       }
+
       .btn {
+         box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
          border-radius: 10px;
          border: 1px solid #20b6b0;
          background-color: #20b6b0;
@@ -24,7 +39,7 @@
       }
 
       .btn:hover {
-         background-color: #494949;
+         background-color: black;
          color: #fff;
       }
 
@@ -41,20 +56,20 @@
       }
 
       .header {
-         margin-top: 30px;
+         margin-left: -40px;
+         box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
          padding-right: 40px;
-         width: 1840px;
-         left: 50%;
-         margin-bottom: 10px;
-         padding-bottom: 20px;
-         border-bottom: 0px solid #1d1d1d;
-         background-color: #252A2E;
-         border-radius: 20px;
+         width: 1920px;
+         background-color: #fbfbfd;
+         padding-bottom: 25px;
       }
-.d3-flame-graph rect {
-         stroke: #252A2E;
+
+      .d3-flame-graph rect {
+         outline: none;
+         stroke: #f0efef;
          fill-opacity: .8;
       }
+
       .header h3 {
          margin-left: 40px;
          margin-top: 0px;
@@ -78,16 +93,19 @@
          fill: greenyellow !important;
       }
 
-.d3-flame-graph-tip {
+      .d3-flame-graph-tip {
          visibility: hidden !important;
-      }.balLogo {
+      }
+
+      .balLogo {
          padding-left: 20px !important;
          padding-top: 25px !important;
          width: 200px !important;
          height: 50px !important;
       }
 
-#chart {
+      #chart {
+         box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
          margin-top: 40px;
          margin-bottom: 40px;
          max-height: 780px;
@@ -95,15 +113,19 @@
          border-radius: 20px;
          overflow-y: auto;
          overflow-x: auto;
-         background-color: #252A2E;
-      }#details{
-         color: #fff;
+         background-color: #fbfbfd;
+      }
+
+      #details {
+         color: black;
          padding: 20px;
          position: absolute;
          left: 50%;
          font-weight: bold;
          transform: translate(-50%, -50%);
-      }.form-control {
+      }
+
+      .form-control {
          border: solid 3px #fff;
          box-sizing: border-box;
          font-size: 17px;
@@ -113,32 +135,31 @@
          width: 300px;
          z-index: 1;
       }
-
-   </style>   <title>b7a-flamegraph</title>
+   </style>
+   <title>b7a-flamegraph</title>
 </head>
 
 <body>
    <div class="container">
       <div class="header clearfix">
-         <nav>
-            <div class="pull-right">
-               <form class="form-inline" id="form">
-                  
-                  
-                  <div class="form-group">
-                     <input placeholder="Search..." id="searchBox" type="text" class="form-control">
-                  </div>
-                  <a class="btn btn-primary" href="javascript: search();">Search</a>
-                  <a class="btn" href="javascript: resetZoom();">Reset zoom</a>
-                  <a class="btn" href="javascript: clearSearch();">Clear</a>
-               </form>
-            </div>
-         </nav>
-         <img class="balLogo" src="https://ballerina.io/images/ballerina-logo-white.svg" alt="B7A">
+        <nav>
+          <div class="pull-right">
+            <form class="form-inline" id="form">
+              <div class="form-group">
+                <input placeholder="Search..." id="searchBox" type="text" class="form-control" id="term">
+              </div>
+              <a class="btn btn-primary" href="javascript: search();">Search</a>
+              <a class="btn" href="javascript: resetZoom();">Reset zoom</a>
+              <a class="btn" href="javascript: clearSearch();">Clear</a>
+            </form>
+          </div>
+        </nav>
+        <img class="balLogo" src="https://ballerina.io/images/ballerina-logo.svg" alt="B7A" />
+        <div id="profilerLogo"> Profiler </div>
       </div>
       <div id="chart"></div>
       <div id="details"></div>
-   </div>
+    </div>
    <script type="text/javascript" src="https://d3js.org/d3.v7.js"></script>
    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/spiermar/d3-flame-graph@2.0.3/dist/d3-flamegraph.min.js"></script>   <script type="text/javascript">
 
